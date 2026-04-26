@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Daniel Orellana — Full Stack Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1a1a;
+    --ink-2: #444;
+    --ink-3: #777;
+    --rule: #e2e0d8;
+    --bg: #f9f7f3;
+    --surface: #ffffff;
+    --accent: #1a3a5c;
+    --accent-2: #c8773a;
+    --tag-bg: #eef2f7;
+    --tag-fg: #2a4a6e;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'Outfit', system-ui, sans-serif;
+    --mono: 'DM Mono', monospace;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* Layout */
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem 5rem;
+  }
+
+  /* Header */
+  .header {
+    padding: 4rem 0 2.5rem;
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: end;
+  }
+
+  .header-left .label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--accent-2);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .header-left h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.4rem, 6vw, 3.6rem);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 0.6rem;
+  }
+
+  .header-left .title {
+    font-size: 1rem;
+    color: var(--ink-2);
+    font-weight: 400;
+  }
+
+  .header-right {
+    text-align: right;
+    font-size: 13px;
+    color: var(--ink-3);
+    line-height: 1.9;
+  }
+
+  .header-right a { color: var(--ink-2); }
+
+  .avatar {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--rule);
+    display: block;
+    margin-left: auto;
+    margin-bottom: 0.75rem;
+  }
+
+  /* Summary */
+  .summary {
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--rule);
+    max-width: 680px;
+  }
+
+  .summary p {
+    font-size: 1rem;
+    color: var(--ink-2);
+    line-height: 1.8;
+  }
+
+  /* Section */
+  section {
+    padding: 3rem 0 0;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .section-header h2 {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    white-space: nowrap;
+  }
+
+  .section-header::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  /* Experience */
+  .experience-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .exp-item {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 0 2rem;
+    padding: 1.75rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .exp-item:last-child { border-bottom: none; }
+
+  .exp-meta {
+    padding-top: 2px;
+  }
+
+  .exp-dates {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--ink-3);
+    line-height: 1.5;
+  }
+
+  .exp-company {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--accent);
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .exp-body {}
+
+  .exp-body h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.1rem;
+  }
+
+  .exp-body .project-label {
+    font-size: 12.5px;
+    color: var(--ink-3);
+    margin-bottom: 0.75rem;
+    font-style: italic;
+  }
+
+  .exp-body ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .exp-body ul li {
+    font-size: 13.5px;
+    color: var(--ink-2);
+    line-height: 1.6;
+    padding-left: 1rem;
+    position: relative;
+    margin-bottom: 0.35rem;
+  }
+
+  .exp-body ul li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--accent-2);
+    font-size: 11px;
+    top: 3px;
+  }
+
+  .exp-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 0.9rem;
+  }
+
+  .tag {
+    background: var(--tag-bg);
+    color: var(--tag-fg);
+    font-family: var(--mono);
+    font-size: 10.5px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: 400;
+  }
+
+  /* Skills grid */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    padding-bottom: 1rem;
+  }
+
+  .skill-group h3 {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent-2);
+    margin-bottom: 0.6rem;
+    font-weight: 500;
+  }
+
+  .skill-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--ink-2);
+    margin-bottom: 6px;
+  }
+
+  .skill-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .level-advanced { background: var(--accent); }
+  .level-intermediate { background: #6a8faf; }
+  .level-novice { background: #b0c4d8; }
+  .level-fundamental { background: #d8e6f0; }
+
+  /* Education */
+  .edu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-bottom: 1rem;
+  }
+
+  .edu-item {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 0 2rem;
+  }
+
+  .edu-dates {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--ink-3);
+    padding-top: 2px;
+  }
+
+  .edu-body h3 {
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .edu-body p {
+    font-size: 13px;
+    color: var(--ink-3);
+    margin-top: 2px;
+  }
+
+  /* Languages */
+  .lang-list {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    padding-bottom: 1rem;
+  }
+
+  .lang-item h3 {
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .lang-item p {
+    font-size: 13px;
+    color: var(--ink-3);
+    margin-top: 2px;
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 640px) {
+    .header { grid-template-columns: 1fr; }
+    .header-right { text-align: left; }
+    .avatar { margin-left: 0; }
+    .exp-item, .edu-item { grid-template-columns: 1fr; gap: 0.25rem; }
+    .exp-meta { display: flex; gap: 1rem; align-items: baseline; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <p class="label">Full Stack Developer</p>
+      <h1>Daniel<br>Orellana</h1>
+      <p class="title">Full Stack Engineer · .NET · Angular · React · Blazor</p>
+    </div>
+    <div class="header-right">
+      <div>orellana.haybar@gmail.com</div>
+      <div>Cochabamba, Bolivia</div>
+    </div>
+  </header>
+
+  <!-- Summary -->
+  <div class="summary">
+    <p><strong>Full Stack Developer with 5+ years of experience</strong> building and modernizing commercial web applications across the .NET ecosystem — from Blazor and ASP.NET Core on the backend to Angular, React, and Razor on the frontend.</p>
+    <p style="margin-top:1rem">Proven track record delivering features in complex, production-grade systems: a health industry CMMS, a WebRTC-based collaboration platform, and a government ERP modernization from legacy .NET/WinForms to a modern CQRS web architecture. Comfortable owning both sides of the stack, resolving critical performance issues, and maintaining component libraries with high design-system standards.</p>
+    <p style="margin-top:1rem">Beyond engineering, brings teaching experience as a faculty practitioner at Jala University — mentoring undergrad students in commercial software engineering and guiding Capstone projects in full-stack web development.</p>
+    <p style="margin-top:1rem">Fluent in agile/Scrum workflows, experienced with Azure DevOps, GitLab CI, and Docker, and always focused on writing maintainable, scalable code.</p>
+  </div>
+
+  <!-- Experience -->
+  <section>
+    <div class="section-header"><h2>Work Experience</h2></div>
+    <div class="experience-list">
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-dates">Apr 2023 — Present</div>
+          <div class="exp-company">Jalasoft</div>
+        </div>
+        <div class="exp-body">
+          <h3>Full Stack Developer</h3>
+          <p class="project-label">CMS application · health industry · Angular + .NET Core + CQRS</p>
+          <ul>
+            <li>Designed and implemented features for a CMMS web application using .NET Core, C#, and Angular with the CQRS pattern.</li>
+            <li>Solved critical performance issues on both backend and frontend sides.</li>
+            <li>Conducted maintenance tasks enhancing application performance and resolving critical bugs.</li>
+            <li>Involved in porting and maintaining a legacy .NET + AngularJS application.</li>
+            <li>Developed dynamic and generic functional components for the frontend.</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="tag">C#</span><span class="tag">TypeScript</span><span class="tag">Angular</span><span class="tag">ASP.NET Core</span><span class="tag">SQL Server</span><span class="tag">Azure DevOps</span><span class="tag">Entity Framework</span><span class="tag">Git</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-dates">Sep 2024 — Jul 2025</div>
+          <div class="exp-company">Jala University</div>
+        </div>
+        <div class="exp-body">
+          <h3>Faculty Practitioner</h3>
+          <p class="project-label">Software Development 4 · Commercial Software Engineering</p>
+          <ul>
+            <li>Collaborated with professor to deliver hands-on software engineering training to undergrad students.</li>
+            <li>Guided students through Capstone projects in front-end development and advanced back-end APIs.</li>
+            <li>Conducted bi-weekly 2-hour lab sessions with real-world case studies and practical exercises.</li>
+            <li>Supported students' transition to professional roles leveraging up-to-date industry knowledge.</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="tag">ASP.NET Core</span><span class="tag">TypeScript</span><span class="tag">MongoDB</span><span class="tag">Docker</span><span class="tag">GitLab</span><span class="tag">Canvas LMS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-dates">Nov 2023 — Dec 2023</div>
+          <div class="exp-company">Jala University</div>
+        </div>
+        <div class="exp-body">
+          <h3>Admissions Course Assistant — Module 2</h3>
+          <ul>
+            <li>Conducted paired interviews to assess candidate readiness, providing feedback on proposed exercises.</li>
+          </ul>
+          <div class="exp-tags"><span class="tag">Python</span></div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-dates">Sep 2023</div>
+          <div class="exp-company">Jala University</div>
+        </div>
+        <div class="exp-body">
+          <h3>Admissions Course Assistant — Module 1</h3>
+          <ul>
+            <li>Led Python exercise walkthroughs, provided student support, and substituted for professor when needed.</li>
+          </ul>
+          <div class="exp-tags"><span class="tag">Python</span></div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-dates">Jan 2023 — Apr 2023</div>
+          <div class="exp-company">Jalasoft</div>
+        </div>
+        <div class="exp-body">
+          <h3>Full Stack Developer</h3>
+          <p class="project-label">Collaborative Communication platform · WebRTC · Onion architecture</p>
+          <ul>
+            <li>Designed and implemented new modules using .NET Core and React + Redux with Onion architecture, structured to become microservices independently.</li>
+            <li>Built frontend features with heavy user interaction, charts, and timelines; wrapped third-party components as needed.</li>
+            <li>Improved CI/CD pipeline performance and execution time.</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="tag">React.js</span><span class="tag">Redux</span><span class="tag">ASP.NET Core</span><span class="tag">MassTransit</span><span class="tag">MongoDB</span><span class="tag">MySQL</span><span class="tag">SignalR</span><span class="tag">Docker</span><span class="tag">Material UI</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-dates">Sep 2020 — Dec 2022</div>
+          <div class="exp-company">Jalasoft</div>
+        </div>
+        <div class="exp-body">
+          <h3>Full Stack Developer</h3>
+          <p class="project-label">ERP modernization for local governments · .NET → Blazor migration</p>
+          <ul>
+            <li>Led a 5-person team in the lead developer's absence, delivering features and fixing critical bugs on schedule.</li>
+            <li>Ported a legacy .NET / Windows Forms / WCF application to a modern CQRS web architecture using .NET Core and Blazor.</li>
+            <li>Maintained a component library with handcrafted and wrapped Syncfusion components, following Material Design and CSS/Sass best practices.</li>
+            <li>Implemented complex features such as wizards and workflows, improving user interaction throughout the application.</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="tag">Blazor</span><span class="tag">C#</span><span class="tag">ASP.NET Core</span><span class="tag">Azure</span><span class="tag">SQL Server</span><span class="tag">Cosmos DB</span><span class="tag">Sass</span><span class="tag">Git</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-dates">Aug 2020 — Sep 2020</div>
+          <div class="exp-company">Jalasoft</div>
+        </div>
+        <div class="exp-body">
+          <h3>Intern — Full Stack Developer</h3>
+          <p class="project-label">Development Community WebApp · MERN stack from scratch</p>
+          <ul>
+            <li>Collaborated with the team to define project structure, workflow, and code quality standards.</li>
+            <li>Implemented frontend with dynamic functional components and Redux state management.</li>
+            <li>Wrote unit tests using Jest and Enzyme.</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="tag">React.js</span><span class="tag">Redux</span><span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">MongoDB</span><span class="tag">Material UI</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-dates">Jan 2020 — Apr 2020</div>
+          <div class="exp-company">Jalasoft</div>
+        </div>
+        <div class="exp-body">
+          <h3>Intern — Full Stack Developer</h3>
+          <p class="project-label">Movie Database WebApp · React + Express + MongoDB</p>
+          <ul>
+            <li>Built frontend from scratch using functional components and Redux state management.</li>
+            <li>Wrapped a third-party API on the backend to add missing functionality required by the client.</li>
+            <li>Wrote unit tests using Jest and React Testing Library.</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="tag">React.js</span><span class="tag">Express</span><span class="tag">MongoDB</span><span class="tag">Redux</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section>
+    <div class="section-header"><h2>Skills</h2></div>
+    <div class="skills-grid">
+
+      <div class="skill-group">
+        <h3>Languages</h3>
+        <div class="skill-item"><span class="skill-dot level-advanced"></span>C#</div>
+        <div class="skill-item"><span class="skill-dot level-intermediate"></span>TypeScript</div>
+        <div class="skill-item"><span class="skill-dot level-intermediate"></span>JavaScript</div>
+        <div class="skill-item"><span class="skill-dot level-intermediate"></span>HTML / CSS / Sass</div>
+        <div class="skill-item"><span class="skill-dot level-intermediate"></span>Razor</div>
+        <div class="skill-item"><span class="skill-dot level-novice"></span>SQL</div>
+        <div class="skill-item"><span class="skill-dot level-novice"></span>Python</div>
+      </div>
+
+      <div class="skill-group">
+        <h3>Web Frameworks</h3>
+        <div class="skill-item"><span class="skill-dot level-advanced"></span>Blazor</div>
+        <div class="skill-item"><span class="skill-dot level-intermediate"></span>Angular</div>
+        <div class="skill-item"><span class="skill-dot level-intermediate"></span>ASP.NET Core</div>
+        <div class="skill-item"><span class="skill-dot level-intermediate"></span>React.js</div>
+        <div class="skill-item"><span class="skill-dot level-novice"></span>Angular.js</div>
+        <div class="skill-item"><span class="skill-dot level-novice"></span>Express</div>
+        <div class="skill-item"><span class="skill-dot level-novice"></span>Svelte</div>
+      </div>
+
+      <div class="skill-group">
+        <h3>Libraries & Tools</h3>
+        <div class="skill-item"><span class="skill-dot level-intermediate"></span>.NET Core</div>
+        <div class="skill-item"><span class="skill-dot level-intermediate"></span>Entity Framework</div>
+        <div class="skill-item"><span class="skill-dot level-intermediate"></span>Redux</div>
+        <div class="skill-item"><span class="skill-dot level-intermediate"></span>Material UI</div>
+        <div class="skill-item"><span class="skill-dot level-intermediate"></span>Bootstrap</div>
+        <div class="skill-item"><span class="skill-dot level-intermediate"></span>Node.js</div>
+        <div class="skill-item"><span class="skill-dot level-intermediate"></span>MassTransit</div>
+        <div class="skill-item"><span class="skill-dot level-novice"></span>SignalR</div>
+      </div>
+
+      <div class="skill-group">
+        <h3>Databases</h3>
+        <div class="skill-item"><span class="skill-dot level-intermediate"></span>Microsoft SQL Server</div>
+        <div class="skill-item"><span class="skill-dot level-novice"></span>MongoDB</div>
+        <div class="skill-item"><span class="skill-dot level-novice"></span>MySQL</div>
+        <div class="skill-item"><span class="skill-dot level-fundamental"></span>Cosmos DB</div>
+      </div>
+
+      <div class="skill-group">
+        <h3>DevOps & Platforms</h3>
+        <div class="skill-item"><span class="skill-dot level-advanced"></span>Azure DevOps</div>
+        <div class="skill-item"><span class="skill-dot level-intermediate"></span>Git</div>
+        <div class="skill-item"><span class="skill-dot level-intermediate"></span>GitLab CI</div>
+        <div class="skill-item"><span class="skill-dot level-intermediate"></span>Azure App Services</div>
+        <div class="skill-item"><span class="skill-dot level-novice"></span>Docker</div>
+        <div class="skill-item"><span class="skill-dot level-novice"></span>TFVC</div>
+      </div>
+
+    </div>
+
+    <p style="font-size:12px;color:var(--ink-3);margin-top:1rem;font-family:var(--mono)">
+      <span style="display:inline-flex;align-items:center;gap:5px;margin-right:1rem"><span class="skill-dot level-advanced" style="width:8px;height:8px;border-radius:50%;background:var(--accent);display:inline-block"></span>Advanced</span>
+      <span style="display:inline-flex;align-items:center;gap:5px;margin-right:1rem"><span class="skill-dot level-intermediate" style="width:8px;height:8px;border-radius:50%;background:#6a8faf;display:inline-block"></span>Intermediate</span>
+      <span style="display:inline-flex;align-items:center;gap:5px;margin-right:1rem"><span class="skill-dot level-novice" style="width:8px;height:8px;border-radius:50%;background:#b0c4d8;display:inline-block"></span>Novice</span>
+      <span style="display:inline-flex;align-items:center;gap:5px"><span class="skill-dot level-fundamental" style="width:8px;height:8px;border-radius:50%;background:#d8e6f0;display:inline-block"></span>Fundamental</span>
+    </p>
+  </section>
+
+  <!-- Languages -->
+  <section>
+    <div class="section-header"><h2>Languages</h2></div>
+    <div class="lang-list">
+      <div class="lang-item">
+        <h3>Spanish</h3>
+        <p>Native</p>
+      </div>
+      <div class="lang-item">
+        <h3>English</h3>
+        <p>Advanced — listening, reading &amp; writing · Intermediate speaking</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Daniel Orellana Haybar</span>
+    <span>Updated 2026</span>
+  </footer>
+
+</div>
+</body>
+</html>
