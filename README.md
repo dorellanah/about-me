@@ -1,4 +1,4 @@
-# Daniel Orellana
+# Daniel Orellana Haybar
 
 **Full Stack Developer** · .NET · Angular · React · Blazor  
 orellana.haybar@gmail.com · Cochabamba, Bolivia
