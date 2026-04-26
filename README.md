@@ -1,7 +1,7 @@
 # Daniel Orellana
 
 **Full Stack Developer** · .NET · Angular · React · Blazor  
-📧 daniel.orellanah@jalasoft.com · Cochabamba, Bolivia
+orellana.haybar@gmail.com · Cochabamba, Bolivia
 
 ---
 
